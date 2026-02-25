@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:arg name="use_mock_hardware" default="false"/>
+
+  <ros2_control name="robbie_ros2_control" type="system">
+
+  <hardware>
+    <xacro:if value="$(arg use_mock_hardware)">
+      <plugin>mock_components/GenericSystem</plugin>
+    </xacro:if>
+    <xacro:unless value="$(arg use_mock_hardware)">
+      <plugin>feetech_ros2_driver/FeetechHardwareInterface</plugin>
+      <param name="usb_port">/dev/st_servo</param>
+    </xacro:unless>
+  </hardware>
+
+  <!-- Head group -->
+  <joint name="head_pan_joint">
+    <param name="initial_position">0.0</param>
+    <param name="id">4</param>
+    <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <param name="gear_ratio">2.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">-1</param> 
+    <param name="speed">3000</param>        <!-- faster than default -->
+    <param name="acceleration">80</param>  <!-- sharder start/stop -->
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />
+  </joint>
+
+  <joint name="head_tilt_joint">
+    <param name="initial_position">0.0</param>
+    <param name="id">5</param>
+    <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <param name="gear_ratio">2.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">-1</param> 
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" /> 
+  </joint>
+
+  <!-- Left arm joints -->
+  <joint name="left_joint_0">
+    <param name="initial_position">1.50</param>
+    <param name="id">3</param>
+    <param name="p_cofficient">20</param>
+    <param name="offset">2100</param>
+    <param name="gear_ratio">2.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">1</param> 
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+  <joint name="left_joint_1">
+      <param name="initial_position">-0.11</param>
+      <param name="id">8</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2100</param>
+    <param name="gear_ratio">2.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">1</param> 
+    <param name="speed">3000</param>        <!-- faster than default -->
+    <param name="acceleration">80</param>  <!-- sharder start/stop -->
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" /> 
+  </joint>
+  <joint name="left_joint_2">
+      <param name="initial_position">0.0</param>
+      <param name="id">6</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <param name="direction">-1</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" /> 
+  </joint>
+  <joint name="left_joint_3">
+      <param name="initial_position">0.0</param>
+      <param name="id">15</param>
+     <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <param name="gear_ratio">1.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">-1</param> 
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" /> 
+  </joint>
+  <joint name="left_joint_4">
+      <param name="initial_position">0.0</param>
+      <param name="id">16</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" /> 
+  </joint>
+  <joint name="left_joint_5">
+      <param name="initial_position">0.0</param>
+      <param name="id">17</param>
+      <param name="p_cofficient">20</param>
+      <param name="offset">2048</param>
+      <param name="direction">-1</param>
+      <command_interface name="position" />
+      <state_interface name="position" />
+      <state_interface name="velocity" /> 
+  </joint>
+  <joint name="left_joint_6">
+      <param name="initial_position">0.0</param>
+      <param name="id">18</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" /> 
+  </joint>
+
+
+<!-- right arm joints -->
+  <joint name="right_joint_0">
+    <param name="initial_position">1.50</param>
+    <param name="id">2</param>
+    <param name="p_cofficient">20</param>
+    <param name="offset">2300</param>
+    <param name="gear_ratio">2.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">-1</param> 
+    <param name="speed">3000</param>        <!-- faster than default -->
+    <param name="acceleration">80</param>  <!-- sharder start/stop -->
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+
+  <joint name="right_joint_1">
+     <param name="initial_position">0.0</param>
+      <param name="id">9</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <param name="gear_ratio">2.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">1</param> 
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+  <joint name="right_joint_2">
+     <param name="initial_position">0.0</param>
+      <param name="id">7</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+  <joint name="right_joint_3">
+    <param name="initial_position">0.0</param>
+      <param name="id">12</param>
+     <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <param name="gear_ratio">1.0</param>   <!-- motor_angle / joint_angle -->
+    <param name="direction">-1</param> 
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+  <joint name="right_joint_4">
+     <param name="initial_position">0.0</param>
+      <param name="id">11</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+  <joint name="right_joint_5">
+     <param name="initial_position">0.0</param>
+      <param name="id">10</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+  <joint name="right_joint_6">
+     <param name="initial_position">0.0</param>
+      <param name="id">13</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+
+  <!-- Grippers -->
+  <joint name="right_gripper">
+     <param name="initial_position">0.0</param>
+      <param name="id">14</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+ 
+  <joint name="left_gripper">
+     <param name="initial_position">0.0</param>
+      <param name="id">19</param>
+      <param name="p_cofficient">20</param>
+    <param name="offset">2048</param>
+    <command_interface name="position" />
+    <state_interface name="position" />
+    <state_interface name="velocity" />  
+  </joint>
+ 
+</ros2_control>
+    
+</robot>

@@ -1,0 +1,101 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 50  # Hz
+
+    head_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    left_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController    
+
+    right_arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    forward_position_controller:
+      type: position_controllers/JointGroupPositionController
+    
+    right_gripper_controller:
+      type: position_controllers/GripperActionController
+
+    left_gripper_controller:
+      type: position_controllers/GripperActionController
+
+
+right_gripper_controller:
+  ros__parameters:
+    joint: right_gripper
+    allow_stalling: true 
+
+left_gripper_controller:
+  ros__parameters:
+    joint: left_gripper
+    allow_stalling: true 
+    
+left_arm_controller:
+  ros__parameters:
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - left_joint_0
+      - left_joint_1
+      - left_joint_2
+      - left_joint_3
+      - left_joint_4
+      - left_joint_5
+      - left_joint_6
+
+right_arm_controller:
+  ros__parameters:
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - right_joint_0  
+      - right_joint_1
+      - right_joint_2
+      - right_joint_3
+      - right_joint_4
+      - right_joint_5
+      - right_joint_6   
+      
+head_controller:
+  ros__parameters:
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    joints:
+      - head_pan_joint
+      - head_tilt_joint
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - head_pan_joint
+      - head_tilt_joint
+      - left_joint_0
+      - left_joint_1
+      - left_joint_2
+      - left_joint_3
+      - left_joint_4
+      - left_joint_5
+      - left_joint_6
+      - right_joint_0
+      - right_joint_1
+      - right_joint_2
+      - right_joint_3
+      - right_joint_4
+      - right_joint_5
+      - right_joint_6
+      - right_gripper
+      - left_gripper
+     
