@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+
+
+<robot name="robbie" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- === Args & Globals =========================================================== -->
+  <xacro:arg name="use_nominal_extrinsics" default="false"/>
+  <xacro:arg name="add_plug"               default="false"/>
+  <xacro:arg name="use_mesh"               default="true"/>
+
+  <xacro:property name="M_PI"    value="3.1415926535897931"/>
+  <xacro:include  filename="$(find omni_bot2)/urdf/hardware.xacro"/>
+  <xacro:include  filename="$(find omni_bot2)/urdf/materials.xacro"/>
+  <xacro:include filename="$(find robbie_description)/urdf/scara_arm_ros2_control.xacro" />
+  <xacro:include filename="$(find robbie_description)/urdf/mantis_gripper.xacro" />
+
+  <!-- Example scale property -->
+  <xacro:property name="M_SCALE" value="0.001"/>
+
+  <!-- === Arm Segment Lengths ====================================================== -->
+  <xacro:property name="link1_length"  value="0.03"/>
+  <xacro:property name="link2_length"  value="0.03"/>
+  <xacro:property name="link3_length"  value="0.07"/>
+  <xacro:property name="link4_length"  value="0.1"/>
+  <xacro:property name="link5_length"  value="0.03"/>
+  <xacro:property name="link6_length"  value="0.03"/>
+  <xacro:property name="joint_limit"   value="${pi / 2}"/>
+
+  <material name="red">
+    <color rgba="1 0 0 1"/>
+  </material>
+
+  
+
+  <!-- === Base ===================================================================== -->
+   <link name="base_footprint"/>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/omni_base_v2.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+      <xacro:yellow/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/omni_base_v2.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- === Sensors ================================================================== -->
+  <link name="scanner_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/X4.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+      <xacro:grey2/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/X4.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="rear_camera_link">
+    <visual>
+    <origin rpy="1.57 0 1.57" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/d435.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+      <xacro:grey1/>
+    </visual>
+    <collision>
+    <origin rpy="1.57 0 1.57" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/d435.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+    </collision>
+    
+  </link>
+
+  <link name="oak"/>
+
+  <!-- === Torso ==================================================================== -->
+  
+  <xacro:my_box name="torso_link" lwh="0.03 0.15 1.25" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_box>        
+
+
+<xacro:my_box name="j0" lwh="0.15 0.075 0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_box>
+
+<xacro:my_cylinder name="j1" r="0.02" l ="0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_cylinder>  
+        
+        
+ <xacro:my_box name="b1" lwh="0.15 0.075 0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_box>       
+
+<xacro:my_cylinder name="j2" r="0.02" l ="0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_cylinder>  
+
+<xacro:my_box name="b2" lwh="0.18 0.065 0.03" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_box>   
+
+<xacro:my_cylinder name="j3" r="0.02" l ="0.02" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:grey2 />
+        </xacro:my_cylinder> 
+
+<xacro:my_cylinder name="j4" r="0.02" l ="0.02" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
+	        <xacro:yellow2 />
+        </xacro:my_cylinder> 
+  
+
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child  link="base_link"/>
+    <origin xyz="0 0 0.07" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="scanner_link_joint" type="fixed">
+    <parent link="base_link"/>
+    <child  link="scanner_link"/>
+    <origin xyz="0.15 0 0.32" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="oak" type="fixed">
+    <parent link="head_box"/>
+    <child  link="oak"/>
+    <origin xyz="0.025 0 0.24" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="rear_camera_link_joint" type="fixed">
+    <parent link="base_link"/>
+    <child  link="rear_camera_link"/>
+    <origin xyz="-0.10 0 0.45" rpy="0 0 3.14"/>
+  </joint>
+
+  <!-- === Head Pan/Tilt ============================================================= -->
+  <joint name="head_pan_joint" type="revolute">
+    <parent link="torso_link"/>
+    <child  link="head_pan"/>
+    <origin xyz="0 0 0.625" rpy="0 0 0"/>
+    <axis   xyz="0 0 1"/>
+    <limit lower="-${joint_limit}" upper="${joint_limit}" effort="1" velocity="1.0"/>
+  </joint>
+
+  <link name="head_pan">
+    <visual>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/neck_assy.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+      <xacro:yellow/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 -1.57" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/neck_assy.stl"
+              scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="head_tilt_joint" type="revolute">
+    <parent link="head_pan"/>
+    <child  link="head_tilt"/>
+    <origin xyz="0 0 0.155" rpy="0 0 0"/>
+    <axis   xyz="0 1 0"/>
+    <limit lower="-${joint_limit}" upper="${joint_limit}" effort="1" velocity="1.0"/>
+  </joint>
+
+  <link name="head_tilt"/>
+
+  <joint name="head_box_joint" type="fixed">
+    <parent link="head_tilt"/>
+    <child  link="head_box"/>
+    <origin xyz="0 0 -0.16" rpy="0 0 0"/>
+  </joint>
+  
+  <link name="head_box">
+    <visual>
+      <origin rpy="0 0 1.57" xyz="0 0 0."/>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/robbie_head.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+      <xacro:yellow/>
+    </visual>
+    <collision>
+      <origin rpy="0 0 1.57" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robbie_description/meshes/robbie_head.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+      </geometry>
+    </collision>
+  </link>
+
+ <joint name="torso_joint" type="fixed">
+    	<parent link="base_link" />
+    	<child link="torso_link" />
+    	<origin xyz="0.0 0 0.6" rpy="0 0 0" />
+</joint> 
+
+<joint name="j0" type="prismatic">
+    	<parent link="torso_link" />
+    	<child link="j0" />
+        <axis xyz="0 0 1"/>
+    	<origin xyz="0.095 0 -0.2" rpy="0 0 0" />
+        <limit effort="1000.0" lower="0.0" upper="0.4" velocity="0.5"/>
+</joint> 
+
+<joint name="j1" type="revolute">
+    	<parent link="j0" />
+    	<child link="j1" />
+        <axis xyz="0 0 1"/>
+    	<origin xyz="0.045 0 0.05 " rpy="0 0 0" />
+        <limit effort="1000.0" lower="-2.356" upper="2.356" velocity="0.5"/>
+</joint> 
+
+<joint name="b1" type="fixed">
+    	<parent link="j1" />
+    	<child link="b1" />
+        <origin xyz="0.115 0 0 " rpy="0 0 0" />       
+</joint> 
+
+
+<joint name="j2" type="revolute">
+    	<parent link="b1" />
+    	<child link="j2" />
+        <axis xyz="0 0 1"/>
+    	<origin xyz="0.045 0 -0.05 " rpy="0 0 0" />
+        <limit effort="1000.0" lower="-2.356" upper="2.356" velocity="0.5"/>
+</joint> 
+
+<joint name="b2" type="fixed">
+    	<parent link="j2" />
+    	<child link="b2" />
+        <origin xyz="0.115 0 0 " rpy="0 0 0" />       
+</joint> 
+
+<joint name="j3" type="revolute">
+    	<parent link="b2" />
+    	<child link="j3" />
+        <axis xyz="0 0 1"/>
+    	<origin xyz="0.085 0 -0.02 " rpy="0 0 0" />
+        <limit effort="1000.0" lower="-2.356" upper="2.356" velocity="0.5"/>
+             
+</joint> 
+
+<joint name="j4" type="revolute">
+    	<parent link="j3" />
+    	<child link="j4" />
+        <axis xyz="0 1 0"/>
+    	<origin xyz="0.01 0 -0.02 " rpy="0 0 0" />
+        <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+        
+        
+</joint> 
+<xacro:gripper_macro  parent="j4" />
+
+  <xacro:scara_arm_ros2_control name="scara_arm"/>
+
+
+  
+
+  
+
+
+</robot>
+

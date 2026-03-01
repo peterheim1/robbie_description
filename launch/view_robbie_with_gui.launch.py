@@ -9,7 +9,7 @@ from launch.substitutions import Command
 
 def generate_launch_description():
     default_model = PathJoinSubstitution([
-        FindPackageShare('robbie_description'), 'urdf', 'robbie.urdf.xacro'   # can also be .xacro
+        FindPackageShare('robbie_description'), 'urdf', 'robbie_scara.urdf.xacro'   # can also be .xacro
     ])
 
     urdf = LaunchConfiguration('urdf')
@@ -32,9 +32,17 @@ def generate_launch_description():
     )
 
     jsp_gui = Node(
-        package='joint_state_publisher',
-        executable='joint_state_publisher',
-        name='joint_state_publisher',
+        package='joint_state_publisher_gui',
+        executable='joint_state_publisher_gui',
+        name='joint_state_publisher_gui',
+        output='screen',
+        parameters=[{'robot_description': robot_description}],
+    )
+
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
         output='screen',
     )
 
@@ -46,5 +54,6 @@ def generate_launch_description():
         ),
         rsp,
         jsp_gui,
+        rviz,
     ])
 
