@@ -1,47 +1,135 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <xacro:arg name="use_mock_hardware" default="false"/>
+
   <xacro:macro name="scara_arm_ros2_control" params="name">
 
-    <ros2_control name="${name}" type="system">
+    <!-- ── j0: prismatic lift — ESP32 + TMC2208 stepper on /dev/stepper ─────── -->
+    <ros2_control name="${name}_j0" type="system">
       <hardware>
-        <plugin>mock_components/GenericSystem</plugin>
+        <xacro:if value="$(arg use_mock_hardware)">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:unless value="$(arg use_mock_hardware)">
+          <plugin>stepper_ros2_driver/StepperHardwareInterface</plugin>
+          <param name="serial_port">/dev/stepper</param>
+        </xacro:unless>
       </hardware>
       <joint name="j0">
         <command_interface name="position"/>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
+        <state_interface name="velocity">
+          <param name="initial_value">0.0</param>
+        </state_interface>
       </joint>
+    </ros2_control>
+
+    <!-- ── All Feetech servos (arm + head) on /dev/st_servo ─────────────────── -->
+    <!--  Single hardware block — LibSerial locks the port exclusively so only   -->
+    <!--  one FeetechHardwareInterface instance can own /dev/st_servo.           -->
+    <ros2_control name="${name}_servos" type="system">
+      <hardware>
+        <xacro:if value="$(arg use_mock_hardware)">
+          <plugin>mock_components/GenericSystem</plugin>
+        </xacro:if>
+        <xacro:unless value="$(arg use_mock_hardware)">
+          <plugin>feetech_ros2_driver/FeetechHardwareInterface</plugin>
+          <param name="usb_port">/dev/st_servo</param>
+        </xacro:unless>
+      </hardware>
+      <!-- Arm joints -->
       <joint name="j1">
+        <param name="id">9</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">2.0</param>
+        <param name="direction">1</param>
         <command_interface name="position"/>
         <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
       <joint name="j2">
+        <param name="id">8</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">2.0</param>
+        <param name="direction">1</param>
         <command_interface name="position"/>
         <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
       <joint name="j3">
+        <param name="id">19</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">1.0</param>
+        <param name="direction">1</param>
         <command_interface name="position"/>
         <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
       <joint name="j4">
+        <param name="id">17</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">1.0</param>
+        <param name="direction">1</param>
         <command_interface name="position"/>
         <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+        <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
       <joint name="gripper">
+        <param name="id">18</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">1.0</param>
+        <param name="direction">1</param>
         <command_interface name="position"/>
         <state_interface name="position">
+          <param name="initial_value">-1.3</param>
+        </state_interface>
+        <state_interface name="velocity">
           <param name="initial_value">0.0</param>
         </state_interface>
+      </joint>
+      <!-- Head joints -->
+      <joint name="head_pan_joint">
+        <param name="initial_position">0.0</param>
+        <param name="id">4</param>
+        <param name="p_cofficient">20</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">2.0</param>
+        <param name="direction">-1</param>
+        <param name="speed">3000</param>
+        <param name="acceleration">80</param>
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+      </joint>
+      <joint name="head_tilt_joint">
+        <param name="initial_position">0.0</param>
+        <param name="id">5</param>
+        <param name="p_cofficient">20</param>
+        <param name="offset">2048</param>
+        <param name="gear_ratio">2.0</param>
+        <param name="direction">-1</param>
+        <command_interface name="position"/>
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
       </joint>
     </ros2_control>
 
