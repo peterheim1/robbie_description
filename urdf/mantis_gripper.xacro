@@ -30,7 +30,7 @@
       <geometry>
         <mesh filename="package://omni_bot2/mesh/claw_3_rr.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
       </geometry>
-         <xacro:White/>
+         <xacro:white/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
    <collision>
@@ -56,7 +56,7 @@
       <geometry>
         <mesh filename="package://omni_bot2/mesh/claw_3_l.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
       </geometry>
-         <xacro:White/>
+         <xacro:white/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
     </visual>
    <collision>

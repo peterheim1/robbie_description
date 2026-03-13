@@ -58,7 +58,7 @@
         <mesh filename="package://robbie_description/meshes/X4.stl"
               scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
       </geometry>
-      <xacro:grey2/>
+      <xacro:grey/>
     </visual>
     <collision>
       <geometry>
@@ -75,7 +75,7 @@
         <mesh filename="package://robbie_description/meshes/d435.stl"
               scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
       </geometry>
-      <xacro:grey1/>
+      <xacro:light_grey/>
     </visual>
     <collision>
     <origin rpy="1.57 0 1.57" xyz="0 0 0"/>
@@ -92,37 +92,37 @@
   <!-- === Torso ==================================================================== -->
   
   <xacro:my_box name="torso_link" lwh="0.03 0.15 0.67" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_box>        
 
 
 <xacro:my_box name="j0" lwh="0.15 0.075 0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_box>
 
 <xacro:my_cylinder name="j1" r="0.02" l ="0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_cylinder>  
         
         
  <xacro:my_box name="b1" lwh="0.15 0.075 0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_box>       
 
 <xacro:my_cylinder name="j2" r="0.02" l ="0.04" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_cylinder>  
 
 <xacro:my_box name="b2" lwh="0.12 0.065 0.03" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_box>   
 
 <xacro:my_cylinder name="j3" r="0.02" l ="0.02" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:grey2 />
+	        <xacro:grey />
         </xacro:my_cylinder> 
 
 <xacro:my_cylinder name="j4" r="0.02" l ="0.02" xyz="0 0 0" rpy="0 0 0" mass="0.1" material="Gazebo/FlatBlack">
-	        <xacro:yellow2 />
+	        <xacro:yellow />
         </xacro:my_cylinder> 
   
 
@@ -154,7 +154,7 @@
   <joint name="head_pan_joint" type="revolute">
     <parent link="torso_link"/>
     <child  link="head_pan"/>
-    <origin xyz="0 0 0.625" rpy="0 0 0"/>
+    <origin xyz="0 0 0.32" rpy="0 0 0"/>
     <axis   xyz="0 0 1"/>
     <limit lower="-${joint_limit}" upper="${joint_limit}" effort="1" velocity="1.0"/>
   </joint>
