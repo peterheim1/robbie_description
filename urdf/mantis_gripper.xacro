@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="M_SCALE" value="0.001"/>
-  <xacro:include filename="$(find omni_bot2)/urdf/hardware.xacro" />
+  <xacro:include filename="$(find robbie_description)/urdf/hardware.xacro" />
   
     <!-- side reflect parent -->
   <xacro:macro name="gripper_macro" params="parent">
@@ -28,7 +28,7 @@
    <link name="right_claw" >
    <visual>
       <geometry>
-        <mesh filename="package://omni_bot2/mesh/claw_3_rr.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        <mesh filename="package://robbie_description/meshes/claw_3_rr.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
       </geometry>
          <xacro:white/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -36,7 +36,7 @@
    <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://omni_bot2/mesh/claw_3_rr.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://robbie_description/meshes/claw_3_rr.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
           </geometry>
       </collision>
   </link>
@@ -54,7 +54,7 @@
    <link name="left_claw" >
    <visual>
       <geometry>
-        <mesh filename="package://omni_bot2/mesh/claw_3_l.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+        <mesh filename="package://robbie_description/meshes/claw_3_l.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
       </geometry>
          <xacro:white/>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -62,7 +62,7 @@
    <collision>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://omni_bot2/mesh/claw_3_l.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          <mesh filename="package://robbie_description/meshes/claw_3_l.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
           </geometry>
       </collision>
   </link>

@@ -103,7 +103,7 @@
 			<visual>
 				<origin xyz="${xyz}" rpy="${rpy}" />
 				<geometry>
-					<mesh filename="package://omni_bot2/mesh/ax12.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+					<mesh filename="package://robbie_description/meshes/ax12.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
 				</geometry>
 				<xacro:dark_grey />
              </visual>
@@ -111,7 +111,7 @@
              <collision>
 				<origin xyz="${xyz}" rpy="${rpy}" />
 				<geometry>
-					<mesh filename="package://omni_bot2/mesh/ax12.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+					<mesh filename="package://robbie_description/meshes/ax12.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
 				</geometry>
              </collision>
              <xacro:default_inertial mass="0.055" />
@@ -124,14 +124,14 @@
 			<visual>
 				<origin xyz="${xyz}" rpy="${rpy}" />
 				<geometry>
-          			<mesh filename="package://omni_bot2/mesh/F2.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          			<mesh filename="package://robbie_description/meshes/F2.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
 				</geometry>
 				<xacro:off_white />
              </visual>
              <collision>
 				<origin xyz="${xyz}" rpy="${rpy}" />
 					<geometry>
-          				<mesh filename="package://omni_bot2/mesh/F2.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          				<mesh filename="package://robbie_description/meshes/F2.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
 					</geometry>
              </collision>
              <xacro:default_inertial mass="0.02" />
@@ -144,14 +144,14 @@
 			<visual>
 				<origin xyz="${xyz}" rpy="${rpy}" />
 				<geometry>
-          			<mesh filename="package://omni_bot2/mesh/F3.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          			<mesh filename="package://robbie_description/meshes/F3.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
 				</geometry>
 				<xacro:off_white />
              </visual>
              <collision>
 				<origin xyz="${xyz}" rpy="${rpy}" />
 					<geometry>
-          				<mesh filename="package://omni_bot2/mesh/F3.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+          				<mesh filename="package://robbie_description/meshes/F3.${MESH_EXT}" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
 					</geometry>
              </collision>
              <xacro:default_inertial mass="0.01" />

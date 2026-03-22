@@ -45,7 +45,7 @@
       </hardware>
       <!-- Arm joints -->
       <joint name="j1">
-        <param name="id">9</param>
+        <param name="id">6</param>
         <param name="offset">2048</param>
         <param name="gear_ratio">2.0</param>
         <param name="direction">1</param>
@@ -61,8 +61,8 @@
         </state_interface>
       </joint>
       <joint name="j2">
-        <param name="id">8</param>
-        <param name="offset">2100</param>
+        <param name="id">16</param>
+        <param name="offset">2048</param>
         <param name="gear_ratio">2.0</param>
         <param name="direction">1</param>
         <command_interface name="position"/>

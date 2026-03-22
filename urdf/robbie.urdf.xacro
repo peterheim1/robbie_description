@@ -9,8 +9,8 @@
   <xacro:arg name="use_mesh"               default="true"/>
 
   <xacro:property name="M_PI"    value="3.1415926535897931"/>
-  <xacro:include  filename="$(find omni_bot2)/urdf/hardware.xacro"/>
-  <xacro:include  filename="$(find omni_bot2)/urdf/materials.xacro"/>
+  <xacro:include  filename="$(find robbie_description)/urdf/hardware.xacro"/>
+  <xacro:include  filename="$(find robbie_description)/urdf/materials.xacro"/>
   <xacro:include filename="$(find robbie_description)/urdf/robbie_ros2_control.xacro" />
 
   <!-- Example scale property -->
